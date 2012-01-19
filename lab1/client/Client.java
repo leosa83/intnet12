@@ -1,5 +1,7 @@
 
 
-public static void main(String[] args) {
+class Client {
+	public static void main(String[] args) {
 	
+	}
 }
