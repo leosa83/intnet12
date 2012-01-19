@@ -18,19 +18,25 @@ class Client {
 			final Socket socket = new Socket(address, port);
 			System.out.println("connected");
 			// thread to read input from user
-			Runnable readThread = new Runnable() {				
+			Runnable readThread = new Runnable() {
 				public void run() {
 					// read input from socket
 					try {
-						while (true) {
+						while (!socket.isInputShutdown()) {
 							InputStream is = socket.getInputStream();
-							while (true) {
-								char c = (char) is.read();
-								System.out.print(c);
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							while (baos.size() == 0 || is.available() > 0) {
+								int c = is.read();
+								if (c == -1) throw new IOException();
+								baos.write(c);
 							}
+							
+							// print the received message
+							System.out.print("> " + baos.toString());
 						}
 					} catch (IOException e) {
-						e.printStackTrace();
+						System.out.println("Server closed connection.");
+						System.exit(0);
 					}
 				}
 			};
@@ -42,6 +48,7 @@ class Client {
 					String line = reader.readLine();
 					OutputStream os = socket.getOutputStream();
 					os.write(line.getBytes());
+					os.write("\n".getBytes());
 					os.flush();
 				}
 			} catch (IOException e) {
