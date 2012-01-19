@@ -1,0 +1,31 @@
+Om n klienter är anlutna, hur många trådar behöver
+1. Servern?
+Servern behöver n+1 trådar. En tråd för varje klient som är ansluten, och en tråd för att hantera inkommande anslutningar.
+2. Klienten behöver två trådar i vår implementation. En tråd används till att lyssna efter inkommande trafik från serveranslutningen och skriva ut den till använder. Den andra tråden används till att lyssna efter tangentbordsinput och skicka den till servern.
+
+De fyra nivåerna är:
+Application layer
+Transport layer
+Network layer
+Link layer
+
+Application layer är de applikationsprotokoll som finns, t ex HTTP och FTP, IMAP.
+
+Transport layer innehåller bland annat protokollen TCP och UDP.
+
+Network layer innehåller protokollet IP som är det mest använda protokollet i network layer. Det sköter routing och ser till att paketen kommer fram.
+
+Link layer är det lagret närmast hårdvaran och ser till att skicka datan, vilket oftast är i form av IP-paket, över t ex Ethernet.
+
+
+Alla tre flaggorna tillhör TCP-protokollet.
+
+ACK - används till att berätta för motparten att man har mottagit paketet
+SEQ - står för sekvensnumret på paketen
+SYN - Används till några olika saker men oftast används det för att sätta upp en anslutning, i form av en SYN, SYN-ACK, ACK-sekvens.
+
+TCP kräver att en anslutning görs innan data kan skickas, vilket inte UDP kräver.
+TCP garanterar att paket kommer fram i ordning, vilket inte UDP gör.
+TCP är ett streaming-protokoll till skillnad från UDP som är paketorienterat.
+TCP ansvarar för att paket kommer fram genom att försöka skicka igen om paket misslyckas, detta gör inte UDP.
+TCP har en större overhead än UDP.
