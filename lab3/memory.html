@@ -7,24 +7,106 @@
 	<title>MemoryMega</title>
 	
 	<script type="text/javascript">
+	var flippedTile = -1;
+	var images = new Array();
+	var img_list = new Array();
+
+	var turned = new Array();
+
+	var player = 0;
+	var scores = [0, 0];
+
 	function loadMemory() {
-	   var table = document.getElementById("memoryTable");
-	   for(row = 0; row < 4; row++) {
-	       table.innerHTML += "<tr>";
-	       for(col = 0; col < 4; col++) {
-	           table.innerHTML += "<td>Bild</td>";
-	       }
-           table.innerHTML += "</tr>";
+		var box = document.getElementById("memoryBox");
+		for(i = 1; i <= 8; i++) {
+			img_list.push(i);
+			img_list.push(i);
+		}
+		
+		for(i = 0; i < 16; i++) {
+			var img_idx = img_list.splice(Math.random()*img_list.length, 1)[0];
+			var image = document.createElement("img");
+			image.setAttribute("id", "img" + i);
+			image.setAttribute("src", "images/tile.jpg");
+			image.setAttribute("onclick", 'clicked(' + i + ')');
+			image.setAttribute("onmouseover", 'mouseover(' + i + ')');
+			image.setAttribute("onmouseout", 'mouseout(' + i + ')');
+			image.alt = img_idx;
+			box.appendChild(image);
+			images.push(image);
+
+			if(i % 4 == 3)
+				box.innerHTML += "<br>";
 	   }
+	   
+	 	reloadScores();
 	}
+
+    function clicked(id) {
+        var image = document.getElementById("img" + id);
+
+        if(image.src.search("tile\-hover\.jpg") == -1)
+        	return;
+        
+        image.src = "images/" + image.alt + ".jpg";
+        
+        if(turned.length == 2) {
+        	if(turned[0].alt != turned[1].alt) {
+        		turned[0].src = "images/tile.jpg";
+        		turned[1].src = "images/tile.jpg";
+        	} else {
+        		turned[0].alt = -1;
+        		turned[1].alt = -1;
+        	}
+        	turned = new Array();
+        }
+
+		turned.push(image);
+
+ 		if(turned.length == 2) {
+ 			if(turned[0].alt == turned[1].alt)
+ 				scores[player] += 1;
+ 			
+ 		    player = player == 1 ? 0 : 1;
+
+ 			reloadScores();
+ 		}
+        
+    }
+
+	function reloadScores() {
+		var box = document.getElementById("scoreBox");
+		box.innerHTML = "Player" + (player + 1) + "'s turn<br>";
+		box.innerHTML += "<b>Score:</b><br>";
+		box.innerHTML += "Player1: " + scores[0] + "<br>";
+		box.innerHTML += "Player2: " + scores[1] + "<br>";
+	}
+
+	function mouseover(id) {
+		var image = document.getElementById("img" + id);
+		if (image.src.search("tile\.jpg") != -1) {
+			image.src = "images/tile-hover.jpg";
+		}
+	}
+
+	function mouseout(id) {
+		var image = document.getElementById("img" + id);
+		if (image.src.search("tile\-hover\.jpg") != -1) {
+			image.src = "images/tile.jpg";
+		}
+	}
+	
 	</script>
 </head>
 <body onload="loadMemory()">
 
-<div style="margin-left:auto; margin-right:auto;">
-	<table id="memoryTable">
+<div  style="margin-left:auto; margin-right:auto;">
+	<div id="memoryBox">
 		
-	</table>
+	</div>
+	<div id="scoreBox">
+	
+	</div>
 </div>
 </body>
 </html>
