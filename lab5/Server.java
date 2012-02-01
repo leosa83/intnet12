@@ -10,7 +10,7 @@ public class Server{
 		SSLServerSocket ss = null;
 		try {
 			ss = (SSLServerSocket)ssf.createServerSocket(8080);
-			String[] cipher = {"SSL_RSA_WITH_RC4_128_MD5"};
+			String[] cipher = {"TLS_DHE_RSA_WITH_AES_256_CBC_SHA"};
 			ss.setEnabledCipherSuites(cipher);
 			System.out.println("Vald:");
 			for(int i = 0; i < ss.getEnabledCipherSuites().length; i++)
@@ -21,7 +21,7 @@ public class Server{
 			String rad = null;
 			while( !(rad=infil.readLine()).equals(""))
 				System.out.println(rad);
-			infil.close();
+			// infil.close();
 
 			PrintWriter out = new PrintWriter(s.getOutputStream(), true);
 			out.print("HTTP/1.1 200 OK\r\n");
