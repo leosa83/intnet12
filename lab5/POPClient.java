@@ -2,6 +2,13 @@ import java.net.*;
 import javax.net.ssl.*;
 import java.io.*;
 
+/*
+gmx-konto
+emilpemil@gmx.com
+132774756
+!234qwerASDF
+*/
+
 public class POPClient {
 	static BufferedReader in;
 	static PrintWriter out;
@@ -56,9 +63,3 @@ public class POPClient {
 			System.out.println(line);
 	}
 }
-
-/*
-emilpemil@gmx.com
-132774756
-!234qwerASDF
-*/
