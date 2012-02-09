@@ -44,15 +44,15 @@
 	$result = pg_exec($link, $query);
 	$numrows = pg_numrows($result);
 	
-	$q = "?";
+	$q = "";
 	foreach ($_GET as $k => $v) {
-		if ($k == "sort") continue;
-		$q = $k . "=" . $v . "&";
+		if ($k != "sort")
+			$q .= $k . "=" . $v . "&";
 	}
 	$q = substr($q, 0, strlen($q) - 1);
 ?>
 
-	<table border="100">
+	<table border="1">
 		<tr>
 			<td>Län</td>
 			<td>Objekttyp</td>
@@ -61,7 +61,7 @@
 			<td><a href="result.php?<?php echo $q ?>&sort=rum">Rum</a></td>
 			<td><a href="result.php?<?php echo $q ?>&sort=pris">Pris</a></td>
 			<td>Avgift</td>
-		</tr>";
+		</tr>
 
 <?php
 	for($ri = 0; $ri < $numrows; $ri++) {
