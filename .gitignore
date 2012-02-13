@@ -1,2 +1,9 @@
 .DS_Store
 *.class
+
+.DS_Store
+.classpath
+.project
+local.properties
+
+bin/
