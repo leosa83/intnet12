@@ -1,9 +1,11 @@
 .DS_Store
 *.class
 
+.settings
 .metadata
 .classpath
 .project
 local.properties
 
 bin/
+gen/
