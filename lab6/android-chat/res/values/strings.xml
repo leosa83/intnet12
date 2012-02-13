@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, ChatActivity!</string>
     <string name="app_name">tjatt</string>
+    <string name="send_button">Skicka</string>
 
 </resources>
