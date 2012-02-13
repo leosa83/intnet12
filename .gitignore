@@ -1,7 +1,7 @@
 .DS_Store
 *.class
 
-.DS_Store
+.metadata
 .classpath
 .project
 local.properties
